@@ -39,7 +39,7 @@ $result = $runtime->execute('path/to/capability.mxjson', [
 
 企业私有化部署和高并发版本需要商业授权。
 
-联系邮箱：your-email@example.com
+联系邮箱：luokongwei@gmail.com
 
 ## License
 

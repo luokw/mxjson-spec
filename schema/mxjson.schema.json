@@ -4,18 +4,28 @@
   "title": "MxJSON Protocol Schema",
   "description": "Schema definition for MxJSON capability packages - 企业级AI能力封装协议规范",
   "type": "object",
-  "required": ["version", "metadata", "capability"],
+  "required": [
+    "version",
+    "metadata",
+    "capability"
+  ],
   "properties": {
     "version": {
       "type": "string",
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
       "description": "MxJSON protocol version (SemVer format)",
-      "examples": ["1.0.0"]
+      "examples": [
+        "1.0.0"
+      ]
     },
     "metadata": {
       "type": "object",
       "description": "Capability metadata - 能力元信息",
-      "required": ["id", "name", "author"],
+      "required": [
+        "id",
+        "name",
+        "author"
+      ],
       "properties": {
         "id": {
           "type": "string",
@@ -41,7 +51,9 @@
         },
         "tags": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Searchable tags for categorization"
         },
         "license": {
@@ -61,7 +73,12 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["prompt", "workflow", "agent", "tool"],
+          "enum": [
+            "prompt",
+            "workflow",
+            "agent",
+            "tool"
+          ],
           "description": "Capability type"
         },
         "inputs": {
@@ -95,7 +112,12 @@
           "properties": {
             "provider": {
               "type": "string",
-              "enum": ["openai", "anthropic", "azure", "custom"]
+              "enum": [
+                "openai",
+                "anthropic",
+                "azure",
+                "custom"
+              ]
             },
             "name": {
               "type": "string"
@@ -103,14 +125,58 @@
             "parameters": {
               "type": "object",
               "properties": {
-                "temperature": { "type": "number", "minimum": 0, "maximum": 2 },
-                "max_tokens": { "type": "integer", "minimum": 1 },
-                "top_p": { "type": "number", "minimum": 0, "maximum": 1 }
+                "temperature": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "max_tokens": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "top_p": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
               }
             }
           }
         }
-      }
+      },
+      "required": [
+        "type"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "prompt"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "prompt"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "workflow"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "steps"
+            ]
+          }
+        }
+      ]
     },
     "pricing": {
       "type": "object",
@@ -118,7 +184,12 @@
       "properties": {
         "model": {
           "type": "string",
-          "enum": ["free", "per_call", "subscription", "custom"],
+          "enum": [
+            "free",
+            "per_call",
+            "subscription",
+            "custom"
+          ],
           "description": "Pricing model"
         },
         "currency": {
@@ -133,14 +204,23 @@
         },
         "unit": {
           "type": "string",
-          "enum": ["call", "token", "minute", "month"],
+          "enum": [
+            "call",
+            "token",
+            "minute",
+            "month"
+          ],
           "description": "Billing unit"
         },
         "trial": {
           "type": "object",
           "properties": {
-            "enabled": { "type": "boolean" },
-            "limit": { "type": "integer" }
+            "enabled": {
+              "type": "boolean"
+            },
+            "limit": {
+              "type": "integer"
+            }
           }
         }
       }
@@ -161,7 +241,9 @@
         },
         "sensitive_fields": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Fields to mask in logs"
         },
         "mask_pattern": {
@@ -181,7 +263,12 @@
         },
         "trigger": {
           "type": "string",
-          "enum": ["always", "confidence_threshold", "keyword", "custom"],
+          "enum": [
+            "always",
+            "confidence_threshold",
+            "keyword",
+            "custom"
+          ],
           "description": "When to trigger human review"
         },
         "threshold": {
@@ -196,7 +283,11 @@
         },
         "fallback_action": {
           "type": "string",
-          "enum": ["approve", "reject", "escalate"],
+          "enum": [
+            "approve",
+            "reject",
+            "escalate"
+          ],
           "description": "Action when review times out"
         }
       }
@@ -207,7 +298,12 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["form", "chat", "wizard", "custom"],
+          "enum": [
+            "form",
+            "chat",
+            "wizard",
+            "custom"
+          ],
           "description": "UI type"
         },
         "theme": {
@@ -229,70 +325,167 @@
   "definitions": {
     "inputField": {
       "type": "object",
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["string", "number", "boolean", "array", "object", "file"]
+          "enum": [
+            "string",
+            "number",
+            "boolean",
+            "array",
+            "object",
+            "file"
+          ]
         },
-        "label": { "type": "string" },
-        "description": { "type": "string" },
-        "required": { "type": "boolean" },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
         "default": {},
         "validation": {
           "type": "object",
           "properties": {
-            "pattern": { "type": "string" },
-            "min": { "type": "number" },
-            "max": { "type": "number" },
-            "minLength": { "type": "integer" },
-            "maxLength": { "type": "integer" }
+            "pattern": {
+              "type": "string"
+            },
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            },
+            "minLength": {
+              "type": "integer"
+            },
+            "maxLength": {
+              "type": "integer"
+            },
+            "enum": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              },
+              "description": "Allowed values for field"
+            }
           }
         }
       }
     },
     "outputField": {
       "type": "object",
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["string", "number", "boolean", "array", "object", "file"]
+          "enum": [
+            "string",
+            "number",
+            "boolean",
+            "array",
+            "object",
+            "file"
+          ]
         },
-        "description": { "type": "string" }
+        "description": {
+          "type": "string"
+        }
       }
     },
     "step": {
       "type": "object",
-      "required": ["id", "type"],
+      "required": [
+        "id",
+        "type"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "name": { "type": "string" },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
         "type": {
           "type": "string",
-          "enum": ["llm", "tool", "condition", "loop", "human_review", "parallel"]
+          "enum": [
+            "llm",
+            "tool",
+            "condition",
+            "loop",
+            "human_review",
+            "parallel"
+          ]
         },
-        "config": { "type": "object" },
+        "config": {
+          "type": "object"
+        },
         "next": {
           "oneOf": [
-            { "type": "string" },
-            { "type": "array", "items": { "type": "string" } }
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "object",
+              "description": "Conditional routing map, e.g. {\"true\":\"stepA\",\"false\":\"stepB\"}",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "minProperties": 1
+            }
           ]
         }
       }
     },
     "uiComponent": {
       "type": "object",
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["input", "textarea", "select", "checkbox", "radio", "file", "button", "display"]
+          "enum": [
+            "input",
+            "textarea",
+            "select",
+            "checkbox",
+            "radio",
+            "file",
+            "button",
+            "display"
+          ]
         },
-        "id": { "type": "string" },
-        "label": { "type": "string" },
-        "bind": { "type": "string" },
-        "props": { "type": "object" }
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "bind": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object"
+        }
       }
     }
   }
