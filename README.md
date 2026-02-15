@@ -9,6 +9,8 @@
 
 ---
 
+[English Version](./README_EN.md)
+
 ## 🎯 What is MxJSON?
 
 MxJSON 是一种**声明式 AI 业务协议**，它将 AI 能力（提示词、工作流、工具调用）封装为**可移植、可定价、可审计**的标准化资产包（MXP）。
@@ -70,6 +72,19 @@ $result = $runtime->execute('contract-review.mxjson', [
 - [JSON Schema 定义](./schema/mxjson.schema.json)
 - [示例：合同审核](./examples/contract-review/)
 - [示例：智能翻译](./examples/translator/)
+- [商业化升级与增长规划](./mxjson新增.md)
+- [English README](./README_EN.md)
+
+---
+
+
+## ✅ Quality & Validation
+
+```bash
+python scripts/validate_examples.py
+```
+
+该命令会校验示例与协议 Schema 的一致性（本地安装了 `jsonschema` 时走完整校验）。
 
 ---
 
@@ -88,7 +103,7 @@ $result = $runtime->execute('contract-review.mxjson', [
 
 ## 📜 Legal
 
-**Software Copyright Registration Number**: 2025SRXXXXX
+**Software Copyright Registration Number**: 2026R11L0140169;2026R11L0140165
 
 本协议规范及核心实现已完成中国软件著作权登记。
 
@@ -108,6 +123,16 @@ $result = $runtime->execute('contract-review.mxjson', [
 - [ ] v1.1.0 - Python 运行时引擎
 - [ ] v1.2.0 - Node.js 运行时引擎
 - [ ] v2.0.0 - 可视化编排器
+
+---
+
+## 🌟 Why This Project Is Star-worthy
+
+- **可执行规范**：不仅有文档，还有可校验 JSON Schema 与完整示例能力包。
+- **面向商业变现**：原生 `pricing`、`audit`、`human_review`，可直接用于企业交付。
+- **跨运行时架构**：协议层稳定后可快速扩展到 PHP / Node.js / Python 等多引擎。
+
+如果你也在做企业 AI Agent、工作流产品、AI 应用市场，欢迎 Star 与共建。
 
 ---
 
